@@ -16,6 +16,12 @@ export default function RestaurantDetails() {
              .catch(error => console.log(error))
     });
 
+    const handleDelete = () => {
+        axios.delete(`${herokuAPI}/restaurants/${id}`)
+             .then(res => navigate("/restaurants"))
+             .catch(error => console.log(error))
+    };
+
     return (
         <div>
             <div>
@@ -30,9 +36,9 @@ export default function RestaurantDetails() {
                 <p>opening: {openingTime} || closing: {closingTime}</p>
             </div>
             <div>
-                <button>BACK</button>
-                <button>EDIT</button> 
-                <button>DELETE</button>
+                <Link to = {"/restaurants"}><button>BACK</button></Link>
+                <Link to = {`/restaurants/${id}/edit`}><button>EDIT</button></Link>
+                <button onClick = {handleDelete}>DELETE</button>
             </div>
         </div>
     )

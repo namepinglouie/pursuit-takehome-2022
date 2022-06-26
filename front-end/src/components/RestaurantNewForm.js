@@ -59,6 +59,7 @@ export default function RestaurantNewForm() {
                 <br />
                 <label htmlFor="diningRestriction">DINING RESTRICTION</label>
                 <input id = "diningRestriction" value = {diningRestriction} type = "text" onChange = {handleText} />
+
                 
                 <div><button type="submit">SUBMIT</button></div>
             </form>
