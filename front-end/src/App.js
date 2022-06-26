@@ -8,6 +8,10 @@ import Show from "./pages/Show.js";
 import Edit from "./pages/Edit.js";
 import New from "./pages/New.js";
 
+import Index2 from "./pages/Index2.js";
+import Show2 from "./pages/Show2.js";
+import New2 from "./pages/New2.js";
+
 export default function App() {
   return(
     <div>
@@ -20,6 +24,10 @@ export default function App() {
             <Route path = "/restaurants/new" element = {<New />} />
             <Route path = "/restaurants/:id" element = {<Show />} />
             <Route path = "/restaurants/:id/edit" element = {<Edit />} />
+            <Route path = "/reservations" element = {<Index2 />} />
+            <Route path = "/reservations/new" element = {<New2 />} />
+            <Route path = "/reservations/:id" element = {<Show2 />} />
+            
           </Routes>
         </main>
       </Router>

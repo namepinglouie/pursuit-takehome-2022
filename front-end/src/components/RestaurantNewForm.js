@@ -67,3 +67,5 @@ export default function RestaurantNewForm() {
     )
 
 };
+
+// restaurant new form + restaurant edit form : make 2 radio buttons for dining restrictions

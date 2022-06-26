@@ -23,7 +23,7 @@ export default function Restaurants() {
     
     return (
         <div>
-            <input type = "text" value={searchRestaurant} onChange={handleSearch} placeholder = "restaurant search" />
+            <input type = "text" value = {searchRestaurant} onChange = {handleSearch} placeholder = "restaurant search" />
             {mapFilterRestaurant}
         </div>
     );
