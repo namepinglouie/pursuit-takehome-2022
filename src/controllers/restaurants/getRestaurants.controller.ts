@@ -12,11 +12,12 @@ interface FindRestaurantsSchema extends ValidatedRequestSchema {
     }
 }
 
-// TODO: define a query object (pagination?, filters?)
+const allowedPrices = Joi.string().valid('$', '$$', '$$$', '$$$$');
+
 const expectedQuery = Joi.object({
     filters: Joi.object({
         diningRestriction: Joi.string().valid('Delivery Only', 'Takeout Only'),
-        price: Joi.string().valid('$', '$$', '$$$', '$$$$'),
+        price: Joi.alternatives().try(Joi.array().items(allowedPrices), allowedPrices),
         cuisine: Joi.alternatives().try(Joi.array().items(Joi.string()), Joi.string()),
         location: Joi.alternatives().try(Joi.array().items(Joi.string()), Joi.string()),
     }),

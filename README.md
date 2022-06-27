@@ -22,7 +22,7 @@ This Repo contains all pre-written code needed to spin up the REST API, document
 
 #### TIP: run the 'heroku apps' command to see if your app is already running
 
-### Step-By-Step - heroku deployment
+### First Time Set Up - heroku deployment
 1. In the terminal, confirm you are within the resy-takehome-backend directory
 2. Run `heroku login` and login with your heroku credentials
 3. Run `heroku container:login` 
@@ -30,6 +30,11 @@ This Repo contains all pre-written code needed to spin up the REST API, document
 5. Wait for the command to complete
 6. Once complete, you can access your api at https://{your name here}-takehome-api.herokuapp.com/
 7. Optional - Use my pre-built Postman collection to test the API: https://www.getpostman.com/collections/d17ea1096dbade3f4a9c
+
+### Refreshing / Updating your heroku deployment
+If you have made changes to the API (or pulled changes from git via `git pull`), you can run `bash ./scripts/update-heroku.sh -n {put your name here}-takehome-api`.
+
+This will update the Docker image that the API is built from -- without rebuilding / provisioning a new database.
 
 ### Stopping the app - heroku 
 1. In the terminal, confirm you are within the resy-takehome-backend directory
@@ -135,7 +140,8 @@ Your Reservation App should have the following pages or views (mobile) (and be d
 
 #### Single Reservation (`/reservations/:id`)
 - User can view active reservation details
-- Additional Challenge: User can update existing reservations
+- User can update existing reservations
+- User can cancel a reservation
 
 
 **Notes**:
@@ -152,7 +158,7 @@ Your Reservation App should have the following pages or views (mobile) (and be d
 - Reservation Fields:
   - Required: firstName, lastName, phoneNumber, time, numGuests
   - Optional: email
-- For more detailed information about the types defined in this API see https://github.com/williamtaggart97/resy-takehome-backend/blob/main/src/util/types.ts 
+- For more detailed information about the types defined in this API see [`./src/util/types.ts`](https://github.com/williamtaggart97/resy-takehome-backend/blob/main/src/util/types.ts )
 
 
 ### Design Inspiration
@@ -161,6 +167,9 @@ This idea for the project already pulls inspiration from apps like Open Table an
 - https://opentable.com 
 - https://resy.com
 
+## Hints
+- When formatting your query string to search and filter restaurants, the 'qs' npm library can be very helpful for formatting complex query strings.
+- Think about what should happen if two reservations are at the same time. (look at the TableConfig type in [`./src/util/types.ts`](https://github.com/williamtaggart97/resy-takehome-backend/blob/main/src/util/types.ts ))
 
 ## Submission Guidelines
 

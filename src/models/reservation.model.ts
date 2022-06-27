@@ -11,7 +11,7 @@ export const makeReservation = async (input: Omit<Reservation, 'id'>): Promise<R
         return newReservation;
     } catch (err) {
         console.error(err);
-        throw new Error('Make Reservation failed -- DB Query');
+        throw new Error(`Make Reservation failed -- ${err.message}`);
     }
 }
 
@@ -21,7 +21,7 @@ export const getReservationById = async (id: string): Promise<Reservation> => {
         return await pgKnex<Reservation>('Reservations').first('*').where({ id });
     } catch (err) {
         console.error(err);
-        throw new Error('Get Reservation By Id failed -- DB Query')
+        throw new Error(`Get Reservation By Id failed -- ${err.message}`)
     }
 }
 
@@ -33,7 +33,7 @@ export const getReservations = async (input: any): Promise<Reservation[]> => {
         return await pgKnex<Reservation>('Reservations').select('*');
     } catch (err) {
         console.error(err);
-        throw new Error('Get Reservations failed -- DB Query');
+        throw new Error(`Get Reservations failed -- ${err.message}`);
     }
 }
 
@@ -42,7 +42,7 @@ export const getReservationsByRestaurantId = async (restaurantId: string): Promi
         return await pgKnex<Reservation>('Reservations').select('*').where({ restaurantId });
     } catch (err) {
         console.error(err);
-        throw new Error(`Get Reservations by Restaurant Id (${restaurantId}) failed -- DB Query`)
+        throw new Error(`Get Reservations by Restaurant Id (${restaurantId}) failed -- ${err.message}`)
     }
 }
 
@@ -60,7 +60,7 @@ export const deleteReservation = async (id: string): Promise<string> => {
         }
     } catch (err) {
         console.error(err);
-        throw new Error(err);
+        throw new Error(`Delete Reservation failed -- ${err.message}`);
     }
 }
 
@@ -70,9 +70,10 @@ export const updateReservationById = async (id: string, update: Partial<Omit<Res
             .where({ id })
             .update({
                 ...update
-            });
+            })
+            .returning('*');
     } catch (err) {
         console.error(err);
-        throw new Error(err);
+        throw new Error(`Update Reservation Failed -- ${err.message}`);
     }
 }

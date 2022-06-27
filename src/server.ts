@@ -5,8 +5,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { appRouter } from './routes';
 import { pgKnex } from './configs/db.config';
-import { redisClient } from './configs/cache.config';
 import { errorHandler } from './util/errors';
+import * as fs from 'fs';
 
 // Constants
 const LOCAL_PORT = 8080;
@@ -21,6 +21,14 @@ app.use(
         extended: true,
     })
 )
+app.get('/', (req, res, next) => { 
+    try {
+        const buffer = fs.readFileSync('./README.html');
+        res.status(200).send(buffer.toString());
+    } catch (err) {
+        next(err)
+    }
+})
 app.use('/api', appRouter);
 app.use(errorHandler);
 
@@ -38,14 +46,14 @@ if (process.env.PORT) {
                 console.error(e);
             });
 
-        // cache setup -- only for local development
-        await redisClient.connect().then(() => {
-            console.log('Redis Client Connected')
-        })
-            .catch((e) => {
-                console.log('Redis Client not connected');
-                console.error(e);
-            });
+        // cache setup - removed because unused (for now)
+        // await redisClient.connect().then(() => {
+        //     console.log('Redis Client Connected')
+        // })
+        //     .catch((e) => {
+        //         console.log('Redis Client not connected');
+        //         console.error(e);
+        //     });
     });
 } else {
     app.listen(LOCAL_PORT, LOCAL_HOST, async () => {
@@ -59,14 +67,14 @@ if (process.env.PORT) {
                 console.error(e);
             });
 
-        // cache setup -- only for local development
-        await redisClient.connect().then(() => {
-            console.log('Redis Client Connected')
-        })
-            .catch((e) => {
-                console.log('Redis Client not connected');
-                console.error(e);
-            });
+        // cache setup -- removed because unused (for now)
+        // await redisClient.connect().then(() => {
+        //     console.log('Redis Client Connected')
+        // })
+        //     .catch((e) => {
+        //         console.log('Redis Client not connected');
+        //         console.error(e);
+        //     });
     });
 }
 

@@ -15,7 +15,7 @@ export interface Restaurant {
 
 export interface RestaurantSearchFilters {
     diningRestriction?: 'Delivery Only' | 'Takeout Only';
-    price?: '$' | '$$' | '$$$' | '$$$$';
+    price?: ('$' | '$$' | '$$$' | '$$$$') | ('$' | '$$' | '$$$' | '$$$$')[];
     cuisine?: string | string[];
     location?: string | string[];
 }

@@ -14,7 +14,7 @@ const expectedBody = Joi.object({
     lastName: Joi.string().required(),
     phoneNumber: Joi.string().length(10).pattern(/^[0-9]+$/).required(),
     email: Joi.string().email({ tlds: { allow: false } }),
-    time: Joi.date().timestamp().required(),
+    time: Joi.date().required(),
     numGuests: Joi.number().required(),
     restaurantId: Joi.string().guid({ version: 'uuidv4' }).required(),
 })
@@ -24,7 +24,7 @@ const main: RequestHandler = async (req: ValidatedRequest<MakeReservationSchema>
         const newReservation = await makeReservation(req.body);
 
         if (newReservation) {
-            res.status(200).send(newReservation);
+            res.status(201).send(newReservation);
         }
     } catch (err) {
         next(err)

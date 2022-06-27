@@ -32,7 +32,7 @@ const main: RequestHandler = async (req: ValidatedRequest<AddRestaurantSchema>, 
         const newRestaurant = await addRestaurant(req.body);
 
         if (newRestaurant) {
-            res.status(200).send(newRestaurant);
+            res.status(201).send(newRestaurant);
         }
     } catch (err) {
         next(err)
